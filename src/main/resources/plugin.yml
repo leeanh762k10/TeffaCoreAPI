@@ -1,0 +1,26 @@
+name: TeffaCoreAPI
+description: $description
+prefix: TeffaCore
+version: '${version}'
+
+main: org.leeanh.TeffaCoreAPI.TeffaCoreAPI
+api-version: '26.1.2'
+load: POSTWORLD
+
+commands:
+  teffa:
+    description: TeffaCoreAPI main command
+    usage: /teffa
+    permission: teffa.command
+
+permissions:
+  teffa.command:
+    default: op
+
+  teffa.command.clientstatus:
+    default: op
+
+depend:
+  - LuckPerms
+
+authors: [ Lee Anh ]

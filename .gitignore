@@ -1,0 +1,27 @@
+# Maven
+target/
+dependency-reduced-pom.xml
+
+# IntelliJ
+.idea/
+*.iml
+
+# Java
+*.class
+
+# Logs
+*.log
+
+# Minecraft test server
+run/
+server/
+plugins/
+logs/
+crash-reports/
+world/
+world_nether/
+world_the_end/
+
+# Secrets
+.env
+*.secret
