@@ -21,3 +21,10 @@ TeffaCoreAPI là core plugin/API dùng cho hệ sinh thái Teffa trên server Mi
 
 ```bash
 mvn clean package
+```
+
+## Ghi chú phát triển
+
+Dự án này được tạo và duy trì bởi Nguyễn Lê Anh.
+Một số phần code được phát triển với sự hỗ trợ của AI.
+Ý tưởng, thiết kế tính năng, kiểm thử và quyết định triển khai thuộc về tác giả.
