@@ -88,6 +88,11 @@ public class JsonProfileStorage implements ProfileStorage {
 
         for (File file : files) {
 
+            if (!file.isFile()
+                    || !file.getName().endsWith(".json")) {
+                continue;
+            }
+
             try (Reader reader =
                          new FileReader(file)) {
 

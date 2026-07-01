@@ -34,14 +34,9 @@ public class ProfileServiceImpl
     @Override
     public PlayerProfile getProfile(String playerName) {
 
-        return profileManager
-                .getProfiles()
-                .stream()
-                .filter(profile ->
-                        profile.getLastKnownName()
-                                .equalsIgnoreCase(playerName))
-                .findFirst()
-                .orElse(null);
+        return profileManager.findProfile(
+                playerName
+        );
     }
 
     @Override
