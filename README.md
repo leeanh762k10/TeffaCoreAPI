@@ -1,21 +1,41 @@
 # TeffaCoreAPI
 
-TeffaCoreAPI là core plugin/API dùng cho hệ sinh thái Teffa trên server Minecraft Paper.
+**Language:** English | [Tiếng Việt](README.vi.md)
+
+---
+
+## English
+
+TeffaCoreAPI is a core plugin/API for Minecraft Paper servers in the Teffa plugin ecosystem.
+
+This plugin provides shared services for other Teffa plugins, including player profiles, permission access, diagnostics, and TeffaClient bridge/session support.
+
+> Status: Beta. Features and API structure may change in future versions.
 
 ## Features
 
-- Player profile system
-- Permission service
-- Diagnostic service
-- Client bridge/session system
-- Join/leave listener
-- Teffa command base
+* Player profile system
+* JSON profile storage
+* Permission service using LuckPerms
+* Diagnostic service
+* TeffaClient bridge/session system
+* Join/leave profile handling
+* `/teffa` command base
+* API foundation for other Teffa plugins
 
 ## Requirements
 
-- Paper 26.1.2
-- Java 25
-- Maven
+* Paper 26.1.2
+* Java 25
+* Maven
+* LuckPerms
+
+## Installation
+
+1. Download `LuckPerms`
+2. Download `TeffaCoreAPI`
+3. Put all `.jar` files into the `plugins/` folder
+4. Restart the server
 
 ## Build
 
@@ -23,8 +43,36 @@ TeffaCoreAPI là core plugin/API dùng cho hệ sinh thái Teffa trên server Mi
 mvn clean package
 ```
 
-## Ghi chú phát triển
+The built `.jar` file will be located in the `target/` folder.
 
-Dự án này được tạo và duy trì bởi Nguyễn Lê Anh.
-Một số phần code được phát triển với sự hỗ trợ của AI.
-Ý tưởng, thiết kế tính năng, kiểm thử và quyết định triển khai thuộc về tác giả.
+## Commands
+
+| Command                        | Permission                   | Description                         |
+| ------------------------------ | ---------------------------- | ----------------------------------- |
+| `/teffa clientstatus <player>` | `teffa.command.clientstatus` | Check a player's TeffaClient status |
+
+## Project structure
+
+```txt
+TeffaCoreAPI/
+├─ src/
+│  └─ main/
+│     ├─ java/
+│     └─ resources/
+│        └─ plugin.yml
+├─ pom.xml
+├─ .gitignore
+└─ README.md
+```
+
+## Notes
+
+TeffaCoreAPI is still in development and may change in future versions.
+
+TeffaCoreAPI is part of the Teffa plugin ecosystem, developed for Minecraft Paper servers.
+
+This project is created and maintained by Nguyễn Lê Anh.
+
+Some parts of the code were developed with AI assistance.
+
+The idea, feature design, testing, and implementation decisions belong to the author.
