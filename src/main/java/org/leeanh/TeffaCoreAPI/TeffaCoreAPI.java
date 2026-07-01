@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2026 Nguyễn Lê Anh.
+ *
+ * This file is part of TeffaCoreAPI.
+ * All rights reserved.
+ */
 package org.leeanh.TeffaCoreAPI;
 
 import net.luckperms.api.LuckPerms;
