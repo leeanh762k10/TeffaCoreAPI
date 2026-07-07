@@ -45,6 +45,8 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
     @Override
     public void onEnable() {
 
+        TeffaCoreProvider.register(this);
+
         setupProfileSystem();
 
         setupDiagnosticSystem();
@@ -273,8 +275,8 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
                         this
                 );
 
-        getLogger().info(
-                "TeffaCoreAPI disabled!"
-        );
+        TeffaCoreProvider.unregister();
+
+        getLogger().info("TeffaCoreAPI disabled!");
     }
 }
