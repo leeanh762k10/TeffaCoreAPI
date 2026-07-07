@@ -3,6 +3,7 @@ package org.leeanh.TeffaCoreAPI.core.database.driver;
 import org.leeanh.TeffaCoreAPI.core.database.DatabaseType;
 import org.leeanh.TeffaCoreAPI.core.database.config.DatabaseConfig;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -10,22 +11,24 @@ public final class DatabaseManager {
 
     private final DatabaseConfig config;
     private DatabaseDriver driver;
+    private final File dataFolder;
 
-    public DatabaseManager(DatabaseConfig config) {
+    public DatabaseManager(DatabaseConfig config, File dataFolder) {
         this.config = config;
+        this.dataFolder = dataFolder;
     }
 
-    public void initialize() {
+    public void initialize() throws SQLException {
         if (config.type() == DatabaseType.MYSQL) {
             driver = new MySQLDriver();
         } else {
-            driver = new SQLiteDriver();
+            driver = new SQLiteDriver(dataFolder, config);
         }
 
         driver.connect();
     }
 
-    public void shutdown() {
+    public void shutdown() throws SQLException {
         if (driver != null) {
             driver.disconnect();
         }

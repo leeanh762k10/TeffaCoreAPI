@@ -15,13 +15,27 @@ public final class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public void initialize() {
-        databaseManager.initialize();
+    public void initialize(){
+        try {
+            databaseManager.initialize();
+        } catch (SQLException exception) {
+            throw new IllegalStateException(
+                    "Failed to initialize database.",
+                    exception
+            );
+        }
     }
 
     @Override
     public void shutdown() {
-        databaseManager.initialize();
+        try {
+            databaseManager.shutdown();
+        } catch (SQLException exception) {
+            throw new IllegalStateException(
+                    "Failed to shutdown database.",
+                    exception
+            );
+        }
     }
 
     @Override

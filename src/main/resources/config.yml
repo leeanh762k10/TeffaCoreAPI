@@ -1,2 +1,18 @@
 database:
   type: sqlite
+
+  sqlite:
+    file: database/teffa.db
+
+  mysql:
+    host: localhost
+    port: 3306
+    database: teffa
+    username: root
+    password: ""
+    parameters: "?useSSL=false&serverTimezone=UTC"
+
+  pool:
+    maximumPoolSize: 10
+    minimumIdle: 2
+    connectionTimeout: 30000

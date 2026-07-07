@@ -50,6 +50,8 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
     @Override
     public void onEnable() {
 
+        saveDefaultConfig();
+
         TeffaCoreProvider.register(this);
 
         setupDatabaseSystem();
@@ -188,7 +190,10 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
                 new DatabaseConfig(getConfig());
 
         DatabaseManager databaseManager =
-                new DatabaseManager(databaseConfig);
+                new DatabaseManager(
+                        databaseConfig,
+                        getDataFolder()
+                );
 
         databaseService =
                 new DatabaseServiceImpl(databaseManager);

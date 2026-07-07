@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 public interface DatabaseDriver {
 
-    void connect();
+    void connect() throws SQLException;
 
-    void disconnect();
+    void disconnect() throws SQLException;
 
     Connection getConnection() throws SQLException;
 
