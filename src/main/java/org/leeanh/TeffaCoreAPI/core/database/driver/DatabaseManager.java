@@ -10,8 +10,9 @@ import java.sql.SQLException;
 public final class DatabaseManager {
 
     private final DatabaseConfig config;
-    private DatabaseDriver driver;
     private final File dataFolder;
+
+    private DatabaseDriver driver;
 
     public DatabaseManager(DatabaseConfig config, File dataFolder) {
         this.config = config;
@@ -35,8 +36,8 @@ public final class DatabaseManager {
     }
 
     public Connection getConnection() throws SQLException {
-        if (driver != null || !driver.isConnected()) {
-            throw new SQLException("Driver is not connected");
+        if (driver == null || !driver.isConnected()) {
+            throw new SQLException("Driver is not connected.");
         }
 
         return driver.getConnection();
