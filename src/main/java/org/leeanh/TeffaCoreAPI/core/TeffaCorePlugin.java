@@ -10,7 +10,9 @@ import net.luckperms.api.LuckPerms;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.leeanh.TeffaCoreAPI.api.database.DatabaseService;
 import org.leeanh.TeffaCoreAPI.api.profile.ProfileService;
+import org.leeanh.TeffaCoreAPI.core.database.DatabaseServiceImpl;
 import org.leeanh.TeffaCoreAPI.core.profile.ProfileServiceImpl;
 import org.leeanh.TeffaCoreAPI.api.TeffaCoreAPI;
 import org.leeanh.TeffaCoreAPI.client.TeffaClientBridge;
@@ -35,6 +37,7 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
     private ProfileStorage profileStorage;
     private ProfileService profileService;
     private DiagnosticService diagnosticService;
+    private DatabaseService databaseService;
 
     private LuckPerms luckPerms;
     private PermissionService permissionService;
@@ -46,6 +49,8 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
     public void onEnable() {
 
         TeffaCoreProvider.register(this);
+
+        setupDatabaseSystem();
 
         setupProfileSystem();
 
@@ -175,6 +180,25 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
         );
     }
 
+    private void setupDatabaseSystem() {
+        databaseService =
+                new DatabaseServiceImpl();
+
+        databaseService.initialize();
+
+        getServer().getServicesManager()
+                .register(
+                        DatabaseService.class,
+                        databaseService,
+                        this,
+                        ServicePriority.Normal
+                );
+
+        getLogger().info(
+                "DatabaseService registered!"
+        );
+    }
+
     private void registerListeners() {
 
         getServer()
@@ -233,6 +257,11 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
         return diagnosticService;
     }
 
+    @Override
+    public DatabaseService databaseService() {
+        return databaseService;
+    }
+
     public ProfileManager getProfileManager() {
         return profileManager;
     }
@@ -251,6 +280,10 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
 
     @Override
     public void onDisable() {
+
+        if(databaseService != null) {
+            databaseService.shutdown();
+        }
 
         if (teffaClientBridge != null) {
             teffaClientBridge.unregisterChannels();
