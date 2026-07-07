@@ -39,7 +39,6 @@ public final class DatabaseManager {
         if (driver == null || !driver.isConnected()) {
             throw new SQLException("Driver is not connected.");
         }
-
         return driver.getConnection();
     }
 
