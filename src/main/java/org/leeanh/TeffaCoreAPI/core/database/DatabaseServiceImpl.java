@@ -1,31 +1,36 @@
 package org.leeanh.TeffaCoreAPI.core.database;
 
 import org.leeanh.TeffaCoreAPI.api.database.DatabaseService;
+import org.leeanh.TeffaCoreAPI.core.database.driver.DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public final class DatabaseServiceImpl implements DatabaseService {
 
-    private boolean initialized;
+    private final DatabaseManager databaseManager;
+
+    public DatabaseServiceImpl(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
+    }
 
     @Override
     public void initialize() {
-        initialized = true;
+        databaseManager.initialize();
     }
 
     @Override
     public void shutdown() {
-        initialized = false;
+        databaseManager.initialize();
     }
 
     @Override
     public Connection getConnection() throws SQLException {
-        throw new UnsupportedOperationException("Database connection is not implemented yet.");
+        return databaseManager.getConnection();
     }
 
     @Override
     public boolean isInitialized() {
-        return false;
+        return databaseManager.isConnected();
     }
 }

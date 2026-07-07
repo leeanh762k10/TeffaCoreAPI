@@ -13,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.leeanh.TeffaCoreAPI.api.database.DatabaseService;
 import org.leeanh.TeffaCoreAPI.api.profile.ProfileService;
 import org.leeanh.TeffaCoreAPI.core.database.DatabaseServiceImpl;
+import org.leeanh.TeffaCoreAPI.core.database.config.DatabaseConfig;
+import org.leeanh.TeffaCoreAPI.core.database.driver.DatabaseManager;
 import org.leeanh.TeffaCoreAPI.core.profile.ProfileServiceImpl;
 import org.leeanh.TeffaCoreAPI.api.TeffaCoreAPI;
 import org.leeanh.TeffaCoreAPI.client.TeffaClientBridge;
@@ -181,8 +183,15 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
     }
 
     private void setupDatabaseSystem() {
+
+        DatabaseConfig databaseConfig =
+                new DatabaseConfig(getConfig());
+
+        DatabaseManager databaseManager =
+                new DatabaseManager(databaseConfig);
+
         databaseService =
-                new DatabaseServiceImpl();
+                new DatabaseServiceImpl(databaseManager);
 
         databaseService.initialize();
 
