@@ -1,4 +1,4 @@
-package org.leeanh.TeffaCoreAPI.diagnostic;
+package org.leeanh.TeffaCoreAPI.core.diagnostic;
 
 public enum DiagnosticStatus {
 

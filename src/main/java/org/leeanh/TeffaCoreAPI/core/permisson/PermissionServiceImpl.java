@@ -1,10 +1,11 @@
-package org.leeanh.TeffaCoreAPI.permission;
+package org.leeanh.TeffaCoreAPI.core.permisson;
 
 import net.luckperms.api.LuckPerms;
 import org.bukkit.entity.Player;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.cacheddata.CachedMetaData;
 import net.luckperms.api.query.QueryOptions;
+import org.leeanh.TeffaCoreAPI.api.permisson.PermissionService;
 
 public class PermissionServiceImpl
         implements PermissionService {

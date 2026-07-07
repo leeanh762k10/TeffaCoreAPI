@@ -1,4 +1,8 @@
-package org.leeanh.TeffaCoreAPI.diagnostic;
+package org.leeanh.TeffaCoreAPI.api.diagnostic;
+
+import org.leeanh.TeffaCoreAPI.core.diagnostic.DiagnosticIssue;
+import org.leeanh.TeffaCoreAPI.core.diagnostic.DiagnosticProvider;
+import org.leeanh.TeffaCoreAPI.core.diagnostic.DiagnosticStatus;
 
 import java.util.Collection;
 

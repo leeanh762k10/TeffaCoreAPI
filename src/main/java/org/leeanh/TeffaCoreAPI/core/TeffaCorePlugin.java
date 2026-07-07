@@ -4,34 +4,37 @@
  * This file is part of TeffaCoreAPI.
  * All rights reserved.
  */
-package org.leeanh.TeffaCoreAPI;
+package org.leeanh.TeffaCoreAPI.core;
 
 import net.luckperms.api.LuckPerms;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.leeanh.TeffaCoreAPI.api.ProfileService;
-import org.leeanh.TeffaCoreAPI.api.ProfileServiceImpl;
+import org.leeanh.TeffaCoreAPI.api.profile.ProfileService;
+import org.leeanh.TeffaCoreAPI.core.profile.ProfileServiceImpl;
+import org.leeanh.TeffaCoreAPI.api.TeffaCoreAPI;
 import org.leeanh.TeffaCoreAPI.client.TeffaClientBridge;
 import org.leeanh.TeffaCoreAPI.client.TeffaClientSessionManager;
-import org.leeanh.TeffaCoreAPI.diagnostic.DiagnosticService;
-import org.leeanh.TeffaCoreAPI.diagnostic.DiagnosticServiceImpl;
+import org.leeanh.TeffaCoreAPI.api.diagnostic.DiagnosticService;
+import org.leeanh.TeffaCoreAPI.core.diagnostic.DiagnosticServiceImpl;
 import org.leeanh.TeffaCoreAPI.listener.JoinListener;
 import org.leeanh.TeffaCoreAPI.listener.LeaveListener;
-import org.leeanh.TeffaCoreAPI.permission.PermissionService;
-import org.leeanh.TeffaCoreAPI.permission.PermissionServiceImpl;
-import org.leeanh.TeffaCoreAPI.profile.PlayerProfile;
-import org.leeanh.TeffaCoreAPI.profile.ProfileManager;
-import org.leeanh.TeffaCoreAPI.storage.JsonProfileStorage;
-import org.leeanh.TeffaCoreAPI.storage.ProfileStorage;
+import org.leeanh.TeffaCoreAPI.api.permisson.PermissionService;
+import org.leeanh.TeffaCoreAPI.core.permisson.PermissionServiceImpl;
+import org.leeanh.TeffaCoreAPI.api.profile.PlayerProfile;
+import org.leeanh.TeffaCoreAPI.core.profile.ProfileManager;
+import org.leeanh.TeffaCoreAPI.core.storage.JsonProfileStorage;
+import org.leeanh.TeffaCoreAPI.core.storage.ProfileStorage;
 import org.leeanh.TeffaCoreAPI.command.TeffaCommand;
 
 import java.io.File;
 
-public final class TeffaCoreAPI extends JavaPlugin {
+public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
 
     private ProfileManager profileManager;
     private ProfileStorage profileStorage;
+    private ProfileService profileService;
+    private DiagnosticService diagnosticService;
 
     private LuckPerms luckPerms;
     private PermissionService permissionService;
@@ -74,7 +77,7 @@ public final class TeffaCoreAPI extends JavaPlugin {
                         profileStorage
                 );
 
-        ProfileService profileService =
+        profileService =
                 new ProfileServiceImpl(
                         profileManager
                 );
@@ -95,7 +98,7 @@ public final class TeffaCoreAPI extends JavaPlugin {
 
     private void setupDiagnosticSystem() {
 
-        DiagnosticService diagnosticService =
+        diagnosticService =
                 new DiagnosticServiceImpl();
 
         getServer()
@@ -211,6 +214,21 @@ public final class TeffaCoreAPI extends JavaPlugin {
                     "Command /teffa is missing in plugin.yml!"
             );
         }
+    }
+
+    @Override
+    public ProfileService profileService() {
+        return profileService;
+    }
+
+    @Override
+    public PermissionService permissionService() {
+        return permissionService;
+    }
+
+    @Override
+    public DiagnosticService diagnosticService() {
+        return diagnosticService;
     }
 
     public ProfileManager getProfileManager() {

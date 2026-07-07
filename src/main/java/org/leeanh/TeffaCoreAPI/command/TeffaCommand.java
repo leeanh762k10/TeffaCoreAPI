@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.leeanh.TeffaCoreAPI.TeffaCoreAPI;
+import org.leeanh.TeffaCoreAPI.core.TeffaCorePlugin;
 import org.leeanh.TeffaCoreAPI.client.TeffaClientSession;
 import org.leeanh.TeffaCoreAPI.client.TeffaClientStatus;
 
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class TeffaCommand implements CommandExecutor {
 
-    private final TeffaCoreAPI plugin;
+    private final TeffaCorePlugin plugin;
 
     private final DateTimeFormatter formatter =
             DateTimeFormatter
@@ -23,7 +23,7 @@ public class TeffaCommand implements CommandExecutor {
                     .withZone(ZoneId.systemDefault());
 
     public TeffaCommand(
-            TeffaCoreAPI plugin
+            TeffaCorePlugin plugin
     ) {
         this.plugin = plugin;
     }

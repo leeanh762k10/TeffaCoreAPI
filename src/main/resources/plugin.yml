@@ -3,7 +3,7 @@ description: $description
 prefix: TeffaCore
 version: '${version}'
 
-main: org.leeanh.TeffaCoreAPI.TeffaCoreAPI
+main: org.leeanh.TeffaCoreAPI.core.TeffaCorePlugin
 api-version: '26.1.2'
 load: POSTWORLD
 

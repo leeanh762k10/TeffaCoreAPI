@@ -4,14 +4,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.leeanh.TeffaCoreAPI.TeffaCoreAPI;
-import org.leeanh.TeffaCoreAPI.profile.PlayerProfile;
+import org.leeanh.TeffaCoreAPI.core.TeffaCorePlugin;
+import org.leeanh.TeffaCoreAPI.api.profile.PlayerProfile;
 
 public class JoinListener implements Listener {
 
-    private final TeffaCoreAPI plugin;
+    private final TeffaCorePlugin plugin;
 
-    public JoinListener(TeffaCoreAPI plugin) {
+    public JoinListener(TeffaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

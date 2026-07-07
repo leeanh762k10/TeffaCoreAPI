@@ -3,13 +3,13 @@ package org.leeanh.TeffaCoreAPI.listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.leeanh.TeffaCoreAPI.TeffaCoreAPI;
+import org.leeanh.TeffaCoreAPI.core.TeffaCorePlugin;
 
 public class LeaveListener implements Listener {
 
-    private final TeffaCoreAPI plugin;
+    private final TeffaCorePlugin plugin;
 
-    public LeaveListener(TeffaCoreAPI plugin) {
+    public LeaveListener(TeffaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

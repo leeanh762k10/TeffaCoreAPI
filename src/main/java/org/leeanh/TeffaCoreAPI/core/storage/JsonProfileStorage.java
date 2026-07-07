@@ -1,8 +1,8 @@
-package org.leeanh.TeffaCoreAPI.storage;
+package org.leeanh.TeffaCoreAPI.core.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.leeanh.TeffaCoreAPI.profile.PlayerProfile;
+import org.leeanh.TeffaCoreAPI.api.profile.PlayerProfile;
 
 import java.io.*;
 import java.util.UUID;

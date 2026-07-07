@@ -1,4 +1,4 @@
-package org.leeanh.TeffaCoreAPI.profile;
+package org.leeanh.TeffaCoreAPI.api.profile;
 
 import java.util.UUID;
 

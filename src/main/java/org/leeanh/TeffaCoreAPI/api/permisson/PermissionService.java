@@ -1,4 +1,4 @@
-package org.leeanh.TeffaCoreAPI.permission;
+package org.leeanh.TeffaCoreAPI.api.permisson;
 
 import org.bukkit.entity.Player;
 

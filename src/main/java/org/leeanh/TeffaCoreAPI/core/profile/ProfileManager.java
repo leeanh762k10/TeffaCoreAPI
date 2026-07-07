@@ -1,11 +1,12 @@
-package org.leeanh.TeffaCoreAPI.profile;
+package org.leeanh.TeffaCoreAPI.core.profile;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.leeanh.TeffaCoreAPI.storage.ProfileStorage;
+import org.leeanh.TeffaCoreAPI.api.profile.PlayerProfile;
+import org.leeanh.TeffaCoreAPI.core.storage.ProfileStorage;
 
 public class ProfileManager {
 

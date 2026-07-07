@@ -1,4 +1,6 @@
-package org.leeanh.TeffaCoreAPI.diagnostic;
+package org.leeanh.TeffaCoreAPI.core.diagnostic;
+
+import org.leeanh.TeffaCoreAPI.api.diagnostic.DiagnosticService;
 
 import java.util.ArrayList;
 import java.util.Collection;
