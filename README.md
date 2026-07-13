@@ -1,3 +1,21 @@
+<p align="center">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="./assets/branding/teffa-primary-dark-transparent-16x9.png"
+    >
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="assets/branding/teffa-primary-light-transparent-16x9.png"
+    >
+    <img
+      alt="Teffa"
+      src="assets/branding/teffa-primary-dark.png"
+      width="420"
+    >
+  </picture>
+</p>
+
 # TeffaCoreAPI
 
 **Language:** English | [Tiếng Việt](README.vi.md)
