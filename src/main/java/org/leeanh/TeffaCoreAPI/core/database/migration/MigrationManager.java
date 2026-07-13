@@ -15,8 +15,10 @@ public final class MigrationManager {
     }
 
     public void migrate() {
-        try (Connection connection = databaseService.getConnection();
-             Statement statement = connection.createStatement()) {
+        try (
+                Connection connection = databaseService.getConnection();
+                Statement statement = connection.createStatement()
+        ) {
 
             createProfilesTable(statement);
 
@@ -28,7 +30,10 @@ public final class MigrationManager {
         }
     }
 
-    private void createProfilesTable(Statement statement) throws SQLException {
+    private void createProfilesTable(
+            Statement statement
+    ) throws SQLException {
+
         statement.executeUpdate("""
                 CREATE TABLE IF NOT EXISTS teffa_profiles (
                     uuid TEXT PRIMARY KEY,

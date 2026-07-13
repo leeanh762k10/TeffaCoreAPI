@@ -15,6 +15,7 @@ import org.leeanh.TeffaCoreAPI.api.profile.ProfileService;
 import org.leeanh.TeffaCoreAPI.core.database.DatabaseServiceImpl;
 import org.leeanh.TeffaCoreAPI.core.database.config.DatabaseConfig;
 import org.leeanh.TeffaCoreAPI.core.database.driver.DatabaseManager;
+import org.leeanh.TeffaCoreAPI.core.database.migration.MigrationManager;
 import org.leeanh.TeffaCoreAPI.core.profile.ProfileServiceImpl;
 import org.leeanh.TeffaCoreAPI.api.TeffaCoreAPI;
 import org.leeanh.TeffaCoreAPI.client.TeffaClientBridge;
@@ -55,6 +56,8 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
         TeffaCoreProvider.register(this);
 
         setupDatabaseSystem();
+
+        databaseService.initialize();
 
         setupProfileSystem();
 
@@ -200,17 +203,19 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
 
         databaseService.initialize();
 
-        getServer().getServicesManager()
+        MigrationManager migrationManager =
+                new MigrationManager(databaseService);
+
+        migrationManager.migrate();
+
+        getServer()
+                .getServicesManager()
                 .register(
                         DatabaseService.class,
                         databaseService,
                         this,
                         ServicePriority.Normal
                 );
-
-        getLogger().info(
-                "DatabaseService registered!"
-        );
     }
 
     private void registerListeners() {
@@ -295,32 +300,26 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
     @Override
     public void onDisable() {
 
-        if(databaseService != null) {
-            databaseService.shutdown();
-        }
-
         if (teffaClientBridge != null) {
             teffaClientBridge.unregisterChannels();
         }
 
         if (profileManager != null && profileStorage != null) {
 
-            for (PlayerProfile profile :
-                    profileManager.getProfiles()) {
-
+            for (PlayerProfile profile : profileManager.getProfiles()) {
                 profileStorage.save(profile);
             }
 
-            getLogger().info(
-                    "Saved all profiles."
-            );
+            getLogger().info("Saved all profiles.");
         }
 
         getServer()
                 .getServicesManager()
-                .unregisterAll(
-                        this
-                );
+                .unregisterAll(this);
+
+        if (databaseService != null) {
+            databaseService.shutdown();
+        }
 
         TeffaCoreProvider.unregister();
 
