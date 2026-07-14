@@ -99,6 +99,10 @@ public class ProfileManager {
         }
     }
 
+    public void saveProfile(PlayerProfile profile) {
+        storage.save(profile);
+    }
+
     public int getLoadedProfiles() {
         return profiles.size();
     }

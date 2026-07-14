@@ -22,17 +22,15 @@ import org.leeanh.TeffaCoreAPI.client.TeffaClientBridge;
 import org.leeanh.TeffaCoreAPI.client.TeffaClientSessionManager;
 import org.leeanh.TeffaCoreAPI.api.diagnostic.DiagnosticService;
 import org.leeanh.TeffaCoreAPI.core.diagnostic.DiagnosticServiceImpl;
+import org.leeanh.TeffaCoreAPI.core.storage.SqlProfileStorage;
 import org.leeanh.TeffaCoreAPI.listener.JoinListener;
 import org.leeanh.TeffaCoreAPI.listener.LeaveListener;
 import org.leeanh.TeffaCoreAPI.api.permission.PermissionService;
 import org.leeanh.TeffaCoreAPI.core.permission.PermissionServiceImpl;
 import org.leeanh.TeffaCoreAPI.api.profile.PlayerProfile;
 import org.leeanh.TeffaCoreAPI.core.profile.ProfileManager;
-import org.leeanh.TeffaCoreAPI.core.storage.JsonProfileStorage;
 import org.leeanh.TeffaCoreAPI.core.storage.ProfileStorage;
 import org.leeanh.TeffaCoreAPI.command.TeffaCommand;
-
-import java.io.File;
 
 public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
 
@@ -41,6 +39,7 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
     private ProfileService profileService;
     private DiagnosticService diagnosticService;
     private DatabaseService databaseService;
+    private int autoSaveTaskId = -1;
 
     private LuckPerms luckPerms;
     private PermissionService permissionService;
@@ -57,9 +56,9 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
 
         setupDatabaseSystem();
 
-        databaseService.initialize();
-
         setupProfileSystem();
+
+        startProfileAutoSave();
 
         setupDiagnosticSystem();
 
@@ -79,11 +78,8 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
     private void setupProfileSystem() {
 
         profileStorage =
-                new JsonProfileStorage(
-                        new File(
-                                getDataFolder(),
-                                "playerdata"
-                        )
+                new SqlProfileStorage(
+                        databaseService
                 );
 
         profileManager =
@@ -108,6 +104,28 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
         getLogger().info(
                 "ProfileService registered!"
         );
+    }
+
+    private void startProfileAutoSave() {
+        autoSaveTaskId = getServer()
+                .getScheduler()
+                .runTaskTimerAsynchronously(
+                        this,
+                        () -> {
+                            for (PlayerProfile profile :
+                                    profileManager.getProfiles()) {
+
+                                profileManager.saveProfile(profile);
+                            }
+
+                            getLogger().info(
+                                    "Auto-saved player profiles."
+                            );
+                        },
+                        20L * 60L * 5L,
+                        20L * 60L * 5L
+                )
+                .getTaskId();
     }
 
     private void setupDiagnosticSystem() {
@@ -299,6 +317,12 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
 
     @Override
     public void onDisable() {
+
+        if (autoSaveTaskId != -1) {
+            getServer()
+                    .getScheduler()
+                    .cancelTask(autoSaveTaskId);
+        }
 
         if (teffaClientBridge != null) {
             teffaClientBridge.unregisterChannels();
