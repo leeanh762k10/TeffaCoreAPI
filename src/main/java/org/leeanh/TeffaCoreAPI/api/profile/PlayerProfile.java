@@ -12,6 +12,8 @@ public class PlayerProfile {
 
     private long lastJoin;
 
+    private boolean dirty;
+
     public PlayerProfile() {
     }
 
@@ -41,6 +43,7 @@ public class PlayerProfile {
             String lastKnownName
     ) {
         this.lastKnownName = lastKnownName;
+        markDirty();
     }
 
     public long getFirstJoin() {
@@ -51,6 +54,7 @@ public class PlayerProfile {
             long firstJoin
     ) {
         this.firstJoin = firstJoin;
+        markDirty();
     }
 
     public long getLastJoin() {
@@ -61,5 +65,18 @@ public class PlayerProfile {
             long lastJoin
     ) {
         this.lastJoin = lastJoin;
+        markDirty();
+    }
+
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    public void markDirty() {
+        this.dirty = true;
+    }
+
+    public void clearDirty() {
+        this.dirty = false;
     }
 }

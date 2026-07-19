@@ -118,8 +118,14 @@ public final class TeffaCorePlugin extends JavaPlugin implements TeffaCoreAPI {
                                 profileManager.saveProfile(profile);
                             }
 
+                            int count = profileManager.getLoadedProfiles();
+
+                            if (count == 0) {
+                                return;
+                            }
+
                             getLogger().info(
-                                    "Auto-saved player profiles."
+                                    "Auto-saved " + count + " profile(s)."
                             );
                         },
                         20L * 60L * 5L,
